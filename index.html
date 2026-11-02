@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="pt" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kazivovako Matina | Desenvolvedor de Software & Técnico de Informática</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#8B5CF6',
+                        darkBg: '#0B0F19',
+                        cardBg: '#111827',
+                        borderBg: '#1F2937'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0F19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3B82F6;
+        }
+
+        /* Ambient Glow Effects */
+        .glow-blue {
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.35);
+        }
+        .glow-purple {
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.35);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-border {
+            border-image: linear-gradient(to right, #3B82F6, #8B5CF6) 1;
+        }
+
+        /* Glassmorphism elements */
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Intersection Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Skill Bar Animation */
+        .skill-progress {
+            width: 0%;
+            transition: width 1.5s ease-out;
+        }
+
+        /* Timeline Line Connector */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            width: 2px;
+            background: linear-gradient(to bottom, #3B82F6, #8B5CF6);
+        }
+        @media (min-width: 768px) {
+            .timeline-line::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-darkBg text-gray-200 font-sans leading-relaxed overflow-x-hidden">
+
+    <!-- Header / Navbar Fixa -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-panel transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo / Nome -->
+                <a href="#" class="text-xl sm:text-2xl font-bold font-heading tracking-tight flex items-center gap-2">
+                    <span class="w-9 h-9 rounded-lg bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center text-white font-black text-lg shadow-lg">K</span>
+                    <span class="text-white">Kazivovako<span class="gradient-text font-black">.dev</span></span>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex space-x-8 text-sm font-medium">
+                    <a href="#about" class="text-gray-300 hover:text-blue-400 transition-colors">Sobre Mim</a>
+                    <a href="#skills" class="text-gray-300 hover:text-blue-400 transition-colors">Habilidades</a>
+                    <a href="#projects" class="text-gray-300 hover:text-blue-400 transition-colors">Projetos</a>
+                    <a href="#education" class="text-gray-300 hover:text-blue-400 transition-colors">Educação</a>
+                    <a href="#contact" class="text-gray-300 hover:text-blue-400 transition-colors">Contacto</a>
+                </nav>
+
+                <!-- CTA Header Button -->
+                <div class="hidden md:flex items-center">
+                    <a href="#contact" class="px-5 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white shadow-lg shadow-blue-500/20 hover:shadow-purple-500/40 transition-all duration-300 hover:-translate-y-0.5">
+                        <i class="fa-regular fa-paper-plane mr-2"></i>Falar Comigo
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobileMenuBtn" aria-label="Abrir Menu" class="text-gray-300 hover:text-white focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden glass-panel border-t border-gray-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#about" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/60">Sobre Mim</a>
+            <a href="#skills" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/60">Habilidades</a>
+            <a href="#projects" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/60">Projetos</a>
+            <a href="#education" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/60">Educação</a>
+            <a href="#contact" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/60">Contacto</a>
+            <a href="#contact" class="mobile-link block w-full text-center px-4 py-3 rounded-xl text-base font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md">
+                Falar Comigo
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="pt-20">
+        
+        <!-- HERO SECTION -->
+        <section class="min-h-[calc(100vh-80px)] flex items-center justify-center relative overflow-hidden py-16 lg:py-24">
+            <!-- Background Glow Orbs -->
+            <div class="absolute top-1/4 left-10 w-72 h-72 bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Text Info Left -->
+                    <div class="lg:col-span-7 text-center lg:text-left space-y-6 reveal">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs sm:text-sm font-semibold tracking-wide">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            Disponível para Projetos & Oportunidades
+                        </div>
+                        
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-heading text-white tracking-tight leading-tight">
+                            Olá, sou <br class="hidden sm:inline" />
+                            <span class="gradient-text">Kazivovako Matina</span>
+                        </h1>
+                        
+                        <h2 class="text-xl sm:text-2xl font-semibold text-gray-300 flex items-center justify-center lg:justify-start gap-3">
+                            <i class="fa-solid fa-code text-blue-400"></i>
+                            <span>Desenvolvedor de Software & Técnico de TI</span>
+                        </h2>
+
+                        <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                            Especialista na criação de sistemas robustos e eficientes (C#, PHP, JavaScript) e na gestão  de infraestruturas de hardware.
+                        </p>
+
+                        <!-- Buttons & Social Links -->
+                        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                            <a href="#projects" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold text-center hover:from-blue-500 hover:to-purple-500 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-purple-500/40 hover:-translate-y-1">
+                                <i class="fa-solid fa-rocket mr-2"></i>Ver Projetos
+                            </a>
+                            <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel text-white font-semibold text-center hover:bg-gray-800 transition-all duration-300 border border-gray-700 hover:border-gray-500 hover:-translate-y-1">
+                                <i class="fa-regular fa-envelope mr-2"></i>Contacto Direto
+                            </a>
+                        </div>
+
+                        <!-- Social Icons -->
+                        <div class="pt-6 flex items-center justify-center lg:justify-start gap-4 text-gray-400">
+                            <span class="text-xs uppercase tracking-wider font-semibold text-gray-500 mr-2">Redes:</span>
+                            <a href="#" class="w-10 h-10 rounded-lg glass-panel flex items-center justify-center text-gray-300 hover:text-blue-400 hover:border-blue-500/50 transition-all hover:-translate-y-1" title="GitHub">
+                                <i class="fa-brands fa-github text-xl"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-lg glass-panel flex items-center justify-center text-gray-300 hover:text-blue-400 hover:border-blue-500/50 transition-all hover:-translate-y-1" title="LinkedIn">
+                                <i class="fa-brands fa-linkedin-in text-xl"></i>
+                            </a>
+                            <a href="https://wa.me/" target="_blank" class="w-10 h-10 rounded-lg glass-panel flex items-center justify-center text-gray-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all hover:-translate-y-1" title="WhatsApp">
+                                <i class="fa-brands fa-whatsapp text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Avatar / Visual Right -->
+                    <div class="lg:col-span-5 flex justify-center reveal">
+                        <div class="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+                            <!-- Animated outer border ring -->
+                            <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-500 via-purple-500 to-pink-500 animate-spin opacity-75 blur-md" style="animation-duration: 12s;"></div>
+                            
+                            <div class="absolute inset-2 rounded-full bg-cardBg p-3 flex items-center justify-center border border-gray-800">
+                                <div class="w-full h-full rounded-full bg-gradient-to-b from-gray-900 to-gray-950 flex flex-col items-center justify-center text-center p-6 relative overflow-hidden group">
+                                    <!-- Decorative Tech Icons inside avatar frame -->
+                                    <i class="fa-solid fa-code text-7xl text-blue-500/30 group-hover:scale-110 transition-transform duration-500"></i>
+                                    <div class="mt-4 text-center">
+                                        <span class="text-2xl font-bold font-heading text-white block">K. J. E. M.</span>
+                                        <span class="text-xs text-blue-400 tracking-widest font-mono uppercase">Developer & IT Tech</span>
+                                    </div>
+                                    <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-3 text-gray-500 text-sm">
+                                        <i class="fa-brands fa-php hover:text-purple-400 transition-colors"></i>
+                                        <i class="fa-brands fa-js hover:text-yellow-400 transition-colors"></i>
+                                        <i class="fa-solid fa-server hover:text-blue-400 transition-colors"></i>
+                                        <i class="fa-solid fa-database hover:text-emerald-400 transition-colors"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Floating Badge 1 -->
+                            <div class="absolute -top-2 -right-2 glass-panel px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 border border-blue-500/30 shadow-lg animate-bounce" style="animation-duration: 4s;">
+                                <i class="fa-solid fa-laptop-code text-blue-400"></i> Full Stack Dev
+                            </div>
+                            <!-- Floating Badge 2 -->
+                            <div class="absolute -bottom-2 -left-2 glass-panel px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 border border-purple-500/30 shadow-lg">
+                                <i class="fa-solid fa-screwdriver-wrench text-purple-400"></i> IT Hardware & Redes
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SOBRE MIM SECTION -->
+        <section id="about" class="py-20 relative bg-gray-950/50 border-y border-gray-800/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">Conheça a minha trajetória</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold font-heading text-white">Sobre Mim</p>
+                    <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    
+                    <!-- Bio Text -->
+                    <div class="lg:col-span-7 space-y-5 text-gray-300 text-base sm:text-lg reveal">
+                        <p class="leading-relaxed">
+                            O meu nome é <strong class="text-white">Kazivovako Joaquim Eduardo Matina</strong>. Sou um profissional multifacetado apaixonado pela convergência entre a criação de software robusto e a gestão eficiente de infraestruturas informáticas.
+                        </p>
+                        <p class="leading-relaxed">
+                            Com sólida formação técnica e experiência prática, atuo no desenvolvimento de soluções computacionais em linguagens de elevado desempenho como <span class="text-blue-400 font-medium">C e C#</span> para desktop e automação, bem como tecnologias completas para a Web com <span class="text-purple-400 font-medium">PHP, JavaScript, HTML5, CSS3 e MySQL/SQL Server</span>.
+                        </p>
+                        <p class="leading-relaxed">
+                            Além do código, possuo forte competência técnica na manutenção corretiva e preventiva de hardware, montagem de computadores, suporte ao utilizador , oferecendo um suporte integral de IT a empresas e clientes individuais.
+                        </p>
+
+                        <!-- Key Pillars -->
+                        <div class="grid grid-cols-2 gap-4 pt-4">
+                            <div class="p-4 rounded-xl bg-gray-900/80 border border-gray-800 flex items-start gap-3">
+                                <div class="p-2 rounded-lg bg-blue-500/10 text-blue-400">
+                                    <i class="fa-solid fa-cube text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Arquitetura de Software</h4>
+                                    <p class="text-xs text-gray-400">Sistemas seguros, orientados a objetos e modulares.</p>
+                                </div>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-gray-900/80 border border-gray-800 flex items-start gap-3">
+                                <div class="p-2 rounded-lg bg-purple-500/10 text-purple-400">
+                                    <i class="fa-solid fa-network-wired text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Hardware & Redes</h4>
+                                    <p class="text-xs text-gray-400">Diagnóstico, manutenção e cablagem estruturada.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Facts Grid Cards -->
+                    <div class="lg:col-span-5 grid grid-cols-2 gap-4 reveal">
+                        <div class="p-6 rounded-2xl glass-panel text-center hover:border-blue-500/40 transition-all group">
+                            <i class="fa-solid fa-code-commit text-3xl text-blue-400 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <h3 class="text-3xl font-extrabold text-white font-heading">10+</h3>
+                            <p class="text-xs text-gray-400 uppercase font-medium mt-1">Projetos Desenvolvidos</p>
+                        </div>
+                        <div class="p-6 rounded-2xl glass-panel text-center hover:border-purple-500/40 transition-all group">
+                            <i class="fa-solid fa-layer-group text-3xl text-purple-400 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <h3 class="text-3xl font-extrabold text-white font-heading">4+</h3>
+                            <p class="text-xs text-gray-400 uppercase font-medium mt-1">Linguagens Chave</p>
+                        </div>
+                        <div class="p-6 rounded-2xl glass-panel text-center hover:border-purple-500/40 transition-all group">
+                            <i class="fa-solid fa-headset text-3xl text-purple-400 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <h3 class="text-3xl font-extrabold text-white font-heading">100%</h3>
+                            <p class="text-xs text-gray-400 uppercase font-medium mt-1">Suporte Garantido</p>
+                        </div>
+                        <div class="p-6 rounded-2xl glass-panel text-center hover:border-blue-500/40 transition-all group">
+                            <i class="fa-solid fa-graduation-cap text-3xl text-blue-400 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <h3 class="text-3xl font-extrabold text-white font-heading">Técnico</h3>
+                            <p class="text-xs text-gray-400 uppercase font-medium mt-1">Certificado em IT</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- HABILIDADES / SKILLS SECTION -->
+        <section id="skills" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-purple-400 mb-2">Competências Técnicas</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold font-heading text-white">Minhas Habilidades</p>
+                    <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <!-- Categoria 1: Linguagens de Programação -->
+                    <div class="glass-panel p-6 rounded-2xl space-y-6 hover:border-blue-500/30 transition-all reveal">
+                        <div class="flex items-center gap-3 border-b border-gray-800 pb-4">
+                            <div class="p-3 rounded-xl bg-blue-500/10 text-blue-400">
+                                <i class="fa-solid fa-code text-xl"></i>
+                            </div>
+                            <h3 class="font-bold font-heading text-white text-lg">Programação</h3>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-gray-300">C# (.NET)</span>
+                                    <span class="text-blue-400">85%</span>
+                                </div>
+                                <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-gradient-to-r from-blue-500 to-indigo-500" data-width="85%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-gray-300">Linguagem C</span>
+                                    <span class="text-blue-400">80%</span>
+                                </div>
+                                <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-gradient-to-r from-blue-500 to-indigo-500" data-width="80%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-gray-300">PHP</span>
+                                    <span class="text-blue-400">85%</span>
+                                </div>
+                                <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-gradient-to-r from-blue-500 to-indigo-500" data-width="85%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-gray-300">JavaScript (ES6+)</span>
+                                    <span class="text-blue-400">35%</span>
+                                </div>
+                                <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-gradient-to-r from-blue-500 to-indigo-500" data-width="75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categoria 2: Web Development -->
+                    <div class="glass-panel p-6 rounded-2xl space-y-6 hover:border-purple-500/30 transition-all reveal">
+                        <div class="flex items-center gap-3 border-b border-gray-800 pb-4">
+                            <div class="p-3 rounded-xl bg-purple-500/10 text-purple-400">
+                                <i class="fa-solid fa-globe text-xl"></i>
+                            </div>
+                            <h3 class="font-bold font-heading text-white text-lg">Web Dev</h3>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-gray-300">HTML5 & CSS3</span>
+                                    <span class="text-purple-400">80%</span>
+                                </div>
+                                <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-gradient-to-r from-purple-500 to-pink-500" data-width="90%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-gray-300">Tailwind CSS / Bootstrap</span>
+                                    <span class="text-purple-400">20%</span>
+                                </div>
+                                <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-gradient-to-r from-purple-500 to-pink-500" data-width="85%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-gray-300">REST APIs / AJAX</span>
+                                    <span class="text-purple-400">65%</span>
+                                </div>
+                                <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-gradient-to-r from-purple-500 to-pink-500" data-width="75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categoria 3: Banco de Dados -->
+                    <div class="glass-panel p-6 rounded-2xl space-y-6 hover:border-emerald-500/30 transition-all reveal">
+                        <div class="flex items-center gap-3 border-b border-gray-800 pb-4">
+                            <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400">
+                                <i class="fa-solid fa-database text-xl"></i>
+                            </div>
+                            <h3 class="font-bold font-heading text-white text-lg">Bancos de Dados</h3>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-gray-300">MySQL</span>
+                                    <span class="text-emerald-400">80%</span>
+                                </div>
+                                <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-gradient-to-r from-emerald-500 to-teal-500" data-width="85%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    
+                                </div>
+                                <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-gradient-to-r from-emerald-500 to-teal-500" data-width="80%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-gray-300">Modelagem ER & Queries</span>
+                                    <span class="text-emerald-400">85%</span>
+                                </div>
+                                <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-gradient-to-r from-emerald-500 to-teal-500" data-width="85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categoria 4: Hardware & Redes -->
+                    <div class="glass-panel p-6 rounded-2xl space-y-6 hover:border-amber-500/30 transition-all reveal">
+                        <div class="flex items-center gap-3 border-b border-gray-800 pb-4">
+                            <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400">
+                                <i class="fa-solid fa-network-wired text-xl"></i>
+                            </div>
+                            <h3 class="font-bold font-heading text-white text-lg">Hardware & Redes</h3>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-gray-300">Manutenção de Hardware</span>
+                                    <span class="text-amber-400">85%</span>
+                                </div>
+                                <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-gradient-to-r from-amber-500 to-orange-500" data-width="95%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-gray-300">Redes IP & Cablagem</span>
+                                    <span class="text-amber-400">85%</span>
+                                </div>
+                                <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-gradient-to-r from-amber-500 to-orange-500" data-width="85%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-gray-300">Instalação / Config. Sistemas</span>
+                                    <span class="text-amber-400">90%</span>
+                                </div>
+                                <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="skill-progress h-full bg-gradient-to-r from-amber-500 to-orange-500" data-width="90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Technical Badges Footer -->
+                <div class="mt-12 flex flex-wrap justify-center gap-3 reveal">
+                    <span class="px-4 py-2 rounded-full glass-panel text-xs font-medium text-gray-300 border border-gray-800"><i class="fa-brands fa-git-alt text-red-500 mr-2"></i>Git / GitHub</span>
+                    <span class="px-4 py-2 rounded-full glass-panel text-xs font-medium text-gray-300 border border-gray-800"><i class="fa-solid fa-terminal text-green-500 mr-2"></i>CLI & Scripts</span>
+                    <span class="px-4 py-2 rounded-full glass-panel text-xs font-medium text-gray-300 border border-gray-800"><i class="fa-brands fa-windows text-blue-400 mr-2"></i>Windows Server</span>
+                    <span class="px-4 py-2 rounded-full glass-panel text-xs font-medium text-gray-300 border border-gray-800"><i class="fa-solid fa-shield-halved text-purple-400 mr-2"></i>Segurança Básica & Backups</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PROJETOS SECTION -->
+        <section id="projects" class="py-20 relative bg-gray-950/50 border-t border-gray-800/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-12 reveal">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">Portefólio em Ação</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold font-heading text-white">Projetos em Destaque</p>
+                    <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <!-- Buttons Filter JS -->
+                <div class="flex flex-wrap items-center justify-center gap-3 mb-12 reveal">
+                    <button class="filter-btn active px-5 py-2.5 rounded-full text-xs font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white transition-all shadow-md" data-filter="all">
+                        Todos os Projetos
+                    </button>
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-xs font-semibold glass-panel text-gray-300 hover:text-white transition-all border border-gray-800" data-filter="web">
+                        Web (PHP/JS)
+                    </button>
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-xs font-semibold glass-panel text-gray-300 hover:text-white transition-all border border-gray-800" data-filter="desktop">
+                        Desktop (C# / .NET)
+                    </button>
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-xs font-semibold glass-panel text-gray-300 hover:text-white transition-all border border-gray-800" data-filter="c-lang">
+                        Sistemas em C
+                    </button>
+                </div>
+
+                <!-- Projects Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projectsContainer">
+                    
+                    <!-- Projeto 1: Gestão Escolar -->
+                    <div class="project-card glass-panel rounded-2xl overflow-hidden group border border-gray-800 hover:border-blue-500/50 transition-all duration-300 flex flex-col reveal" data-category="web">
+                        <div class="relative h-48 bg-gray-900 overflow-hidden flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent z-10"></div>
+                            <i class="fa-solid fa-graduation-cap text-6xl text-blue-500/20 group-hover:scale-125 transition-transform duration-500"></i>
+                            <span class="absolute top-4 right-4 z-20 px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-semibold border border-blue-500/30">
+                                Web & PHP
+                            </span>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-white font-heading group-hover:text-blue-400 transition-colors">
+                                    Sistema de Gestão Escolar
+                                </h3>
+                                <p class="text-gray-400 text-sm mt-2 line-clamp-3">
+                                    Plataforma completa para controlo de alunos, matrículas, lançamento de notas, pauta de avaliação e gestão de propinas com relatórios em PDF.
+                                </p>
+                            </div>
+                            <div>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-2.5 py-1 rounded-md bg-gray-800 text-gray-300 text-xs font-mono">PHP</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-gray-800 text-gray-300 text-xs font-mono">MySQL</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-gray-800 text-gray-300 text-xs font-mono">JavaScript</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-gray-800 text-gray-300 text-xs font-mono">Bootstrap</span>
+                                </div>
+                                <button onclick="openModal('gestao-escolar')" class="w-full py-2.5 rounded-xl bg-gray-800/80 hover:bg-blue-600 text-white text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-circle-info"></i> Ver Detalhes do Projeto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 2: Gestão de Oficina Mecânica -->
+                    <div class="project-card glass-panel rounded-2xl overflow-hidden group border border-gray-800 hover:border-purple-500/50 transition-all duration-300 flex flex-col reveal" data-category="desktop">
+                        <div class="relative h-48 bg-gray-900 overflow-hidden flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent z-10"></div>
+                            <i class="fa-solid fa-wrench text-6xl text-purple-500/20 group-hover:scale-125 transition-transform duration-500"></i>
+                            <span class="absolute top-4 right-4 z-20 px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 text-xs font-semibold border border-purple-500/30">
+                                Desktop (C#)
+                            </span>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-white font-heading group-hover:text-purple-400 transition-colors">
+                                    Gestão de Oficina Mecânica
+                                </h3>
+                                <p class="text-gray-400 text-sm mt-2 line-clamp-3">
+                                    Software Desktop em C# Windows Forms para registo de ordens de serviço, controlo de peças no stock, faturação e histórico de veículos.
+                                </p>
+                            </div>
+                            <div>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-2.5 py-1 rounded-md bg-gray-800 text-gray-300 text-xs font-mono">C# (.NET)</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-gray-800 text-gray-300 text-xs font-mono">SQL Server</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-gray-800 text-gray-300 text-xs font-mono">WinForms</span>
+                                </div>
+                                <button onclick="openModal('oficina-mecanica')" class="w-full py-2.5 rounded-xl bg-gray-800/80 hover:bg-purple-600 text-white text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-circle-info"></i> Ver Detalhes do Projeto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 3: Gestão Hospitalar / Maternidade -->
+                    <div class="project-card glass-panel rounded-2xl overflow-hidden group border border-gray-800 hover:border-emerald-500/50 transition-all duration-300 flex flex-col reveal" data-category="web">
+                        <div class="relative h-48 bg-gray-900 overflow-hidden flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent z-10"></div>
+                            <i class="fa-solid fa-hospital text-6xl text-emerald-500/20 group-hover:scale-125 transition-transform duration-500"></i>
+                            <span class="absolute top-4 right-4 z-20 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-semibold border border-emerald-500/30">
+                                Web / Sistema
+                            </span>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-white font-heading group-hover:text-emerald-400 transition-colors">
+                                    Sistema Hospitalar / Maternidade
+                                </h3>
+                                <p class="text-gray-400 text-sm mt-2 line-clamp-3">
+                                    Sistema clínico integrado para triagem, agendamento de consultas, registos de internamentos, histórico de partos e prescrição médica.
+                                </p>
+                            </div>
+                            <div>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-2.5 py-1 rounded-md bg-gray-800 text-gray-300 text-xs font-mono">PHP</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-gray-800 text-gray-300 text-xs font-mono">MySQL</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-gray-800 text-gray-300 text-xs font-mono">Tailwind CSS</span>
+                                </div>
+                                <button onclick="openModal('gestao-hospitalar')" class="w-full py-2.5 rounded-xl bg-gray-800/80 hover:bg-emerald-600 text-white text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-circle-info"></i> Ver Detalhes do Projeto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 4: Algoritmos e Estrutura de Dados em C -->
+                    <div class="project-card glass-panel rounded-2xl overflow-hidden group border border-gray-800 hover:border-amber-500/50 transition-all duration-300 flex flex-col reveal" data-category="c-lang">
+                        <div class="relative h-48 bg-gray-900 overflow-hidden flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent z-10"></div>
+                            <i class="fa-solid fa-microchip text-6xl text-amber-500/20 group-hover:scale-125 transition-transform duration-500"></i>
+                            <span class="absolute top-4 right-4 z-20 px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-semibold border border-amber-500/30">
+                                Linguagem C
+                            </span>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-white font-heading group-hover:text-amber-400 transition-colors">
+                                    Gestão de Stocks via Consola (C)
+                                </h3>
+                                <p class="text-gray-400 text-sm mt-2 line-clamp-3">
+                                    Aplicação desenvolvida em C puro para manipulação dinâmica de ficheiros, listas ligadas e algoritmos de busca e ordenação de inventário.
+                                </p>
+                            </div>
+                            <div>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-2.5 py-1 rounded-md bg-gray-800 text-gray-300 text-xs font-mono">C Language</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-gray-800 text-gray-300 text-xs font-mono">Ponteiros</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-gray-800 text-gray-300 text-xs font-mono">Estruturas de Dados</span>
+                                </div>
+                                <button onclick="openModal('sistema-c')" class="w-full py-2.5 rounded-xl bg-gray-800/80 hover:bg-amber-600 text-white text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-circle-info"></i> Ver Detalhes do Projeto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCAÇÃO E CERTIFICAÇÕES SECTION -->
+        <section id="education" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-purple-400 mb-2">Formação & Qualificações</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold font-heading text-white">Educação e Certificações</p>
+                    <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <!-- Timeline Container -->
+                <div class="relative max-w-4xl mx-auto timeline-line space-y-12">
+                    
+                    <!-- Item 1 -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between group reveal">
+                        <div class="flex items-center w-full md:w-1/2 md:pr-8 md:justify-end">
+                            <div class="w-full md:w-auto p-6 rounded-2xl glass-panel border border-gray-800 group-hover:border-blue-500/40 transition-all">
+                                <span class="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-semibold mb-2 inline-block">Ensino Técnico</span>
+                                <h3 class="text-xl font-bold text-white font-heading">Técnico de Informática</h3>
+                                <p class="text-sm text-gray-400 font-medium">Instituto Técnico Profissional</p>
+                                <p class="text-xs text-gray-500 mt-2">Formação abrangente em montagem e reparação de computadores, suporte técnico, redes de computadores, lógica de programação e bases de dados.</p>
+                            </div>
+                        </div>
+                        <div class="absolute left-5 md:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-blue-600 border-4 border-gray-950 flex items-center justify-center text-white text-xs">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <div class="w-full md:w-1/2 md:pl-8 mt-4 md:mt-0">
+                            <span class="text-sm font-bold text-blue-400 font-mono">Concluído</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between group reveal">
+                        <div class="flex items-center w-full md:w-1/2 md:pr-8 md:justify-end order-1 md:order-1">
+                            <span class="text-sm font-bold text-purple-400 font-mono text-right w-full md:w-auto">Especialização</span>
+                        </div>
+                        <div class="absolute left-5 md:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-purple-600 border-4 border-gray-950 flex items-center justify-center text-white text-xs">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div class="flex items-center w-full md:w-1/2 md:pl-8 order-2 md:order-2 mt-4 md:mt-0">
+                            <div class="w-full md:w-auto p-6 rounded-2xl glass-panel border border-gray-800 group-hover:border-purple-500/40 transition-all">
+                                <span class="px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs font-semibold mb-2 inline-block">Desenvolvimento de Software</span>
+                                <h3 class="text-xl font-bold text-white font-heading">Programação C# & PHP Web</h3>
+                                <p class="text-sm text-gray-400 font-medium">Cursos Livres / Auto-Didata Aplicado</p>
+                                <p class="text-xs text-gray-500 mt-2">Aprofundamento em arquitetura orientada a objetos com C# (WinForms/SQL Server) e desenvolvimento web backend com PHP nativo e MySQL.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between group reveal">
+                        <div class="flex items-center w-full md:w-1/2 md:pr-8 md:justify-end">
+                            <div class="w-full md:w-auto p-6 rounded-2xl glass-panel border border-gray-800 group-hover:border-emerald-500/40 transition-all">
+                                <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold mb-2 inline-block">Certificação Técnica</span>
+                                <h3 class="text-xl font-bold text-white font-heading">Manutenção Avançada & Redes IP</h3>
+                                <p class="text-sm text-gray-400 font-medium">Formação Prática em TI</p>
+                                <p class="text-xs text-gray-500 mt-2">Certificação prática em arquitetura de hardware, deteção avançada de avarias, crimpagem de cabos, roteamento e configuração de redes LAN/WAN.</p>
+                            </div>
+                        </div>
+                        <div class="absolute left-5 md:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-emerald-600 border-4 border-gray-950 flex items-center justify-center text-white text-xs">
+                            <i class="fa-solid fa-network-wired"></i>
+                        </div>
+                        <div class="w-full md:w-1/2 md:pl-8 mt-4 md:mt-0">
+                            <span class="text-sm font-bold text-emerald-400 font-mono">Prática Intensiva</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CONTACTO SECTION -->
+        <section id="contact" class="py-20 relative bg-gray-950/50 border-t border-gray-800/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">Vamos Conversar?</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold font-heading text-white">Entre em Contacto</p>
+                    <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    
+                    <!-- Direct Contacts Left -->
+                    <div class="lg:col-span-5 space-y-6 reveal">
+                        <div class="glass-panel p-6 rounded-2xl flex items-center gap-4 hover:border-blue-500/40 transition-all">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-2xl flex-shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-semibold text-gray-400 uppercase">Enviar Email</h4>
+                                <a href="mailto:kazivovako.matina@email.com" class="text-base font-bold text-white hover:text-blue-400 transition-colors">
+                                    kazivovako.matina@email.com
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-6 rounded-2xl flex items-center gap-4 hover:border-emerald-500/40 transition-all">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-2xl flex-shrink-0">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-semibold text-gray-400 uppercase">WhatsApp Direto</h4>
+                                <a href="https://wa.me/" target="_blank" class="text-base font-bold text-white hover:text-emerald-400 transition-colors">
+                                    +244 9XX XXX XXX
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-6 rounded-2xl flex items-center gap-4 hover:border-purple-500/40 transition-all">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-2xl flex-shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-semibold text-gray-400 uppercase">Localização</h4>
+                                <p class="text-base font-bold text-white">Angola</p>
+                            </div>
+                        </div>
+
+                        <!-- Info Box -->
+                        <div class="p-6 rounded-2xl bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-blue-500/20">
+                            <h4 class="font-bold text-white mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-lightbulb text-yellow-400"></i> Precisa de Suporte Técnico ou Software Personalizado?
+                            </h4>
+                            <p class="text-xs text-gray-400 leading-relaxed">
+                                Estou disponível para serviços freelancers, desenvolvimento de projetos académicos/comerciais ou oportunidades de trabalho a tempo inteiro.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form Right -->
+                    <div class="lg:col-span-7 glass-panel p-8 rounded-2xl border border-gray-800 reveal">
+                        
+                        <!-- Success Message Box (Hidden by default) -->
+                        <div id="formSuccessAlert" class="hidden mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm flex items-center gap-3">
+                            <i class="fa-solid fa-circle-check text-xl"></i>
+                            <div>
+                                <strong class="font-bold">Mensagem Enviada!</strong>
+                                <p class="text-xs text-emerald-300">Obrigado pelo contacto, Kazivovako responderá em breve.</p>
+                            </div>
+                        </div>
+
+                        <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="name" class="block text-xs font-semibold text-gray-300 uppercase mb-2">Seu Nome</label>
+                                    <input type="text" id="name" required placeholder="Ex: João Silva" class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-800 text-white focus:outline-none focus:border-blue-500 text-sm transition-colors">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-xs font-semibold text-gray-300 uppercase mb-2">Seu Email</label>
+                                    <input type="email" id="email" required placeholder="Ex: joao@email.com" class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-800 text-white focus:outline-none focus:border-blue-500 text-sm transition-colors">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="subject" class="block text-xs font-semibold text-gray-300 uppercase mb-2">Assunto</label>
+                                <input type="text" id="subject" required placeholder="Ex: Orçamento de Projeto / Suporte IT" class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-800 text-white focus:outline-none focus:border-blue-500 text-sm transition-colors">
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-xs font-semibold text-gray-300 uppercase mb-2">Mensagem</label>
+                                <textarea id="message" rows="5" required placeholder="Descreva o seu projeto ou necessidade..." class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-800 text-white focus:outline-none focus:border-blue-500 text-sm transition-colors resize-none"></textarea>
+                            </div>
+
+                            <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold text-sm hover:from-blue-500 hover:to-purple-500 transition-all shadow-lg shadow-blue-500/20 hover:shadow-purple-500/30 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i> Enviar Mensagem
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-950 border-t border-gray-800 py-8 text-center text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+            <p>© <span id="currentYear"></span> <strong>Kazivovako Joaquim Eduardo Matina</strong>. Todos os direitos reservados.</p>
+            <p class="text-gray-600">Desenvolvido com HTML5, Tailwind CSS & JavaScript</p>
+        </div>
+    </footer>
+
+    <!-- MODAL DINÂMICO DE PROJETOS -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel bg-gray-900 max-w-2xl w-full rounded-2xl border border-gray-800 overflow-hidden shadow-2xl relative transform transition-all">
+            
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-gray-800 flex justify-between items-center">
+                <h3 id="modalTitle" class="text-xl font-bold font-heading text-white">Título do Projeto</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white p-2 text-xl focus:outline-none">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 space-y-4 max-h-[70vh] overflow-y-auto" id="modalBody">
+                <!-- Conteúdo Injetado via JS -->
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 border-t border-gray-800 bg-gray-950/50 flex justify-end">
+                <button onclick="closeModal()" class="px-5 py-2 rounded-xl bg-gray-800 text-white text-xs font-semibold hover:bg-gray-700 transition-colors">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÃO VOLTAR AO TOPO -->
+    <button id="scrollTopBtn" aria-label="Voltar ao topo" class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-gradient-to-tr from-blue-600 to-purple-600 text-white shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:scale-110">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- JAVASCRIPT DINÂMICO -->
+    <script>
+        // Set Current Year in Footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // 1. Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            }
+        });
+
+        // Close Mobile Menu on Click Link
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
+        // 2. Scroll Animations (IntersectionObserver for Reveal Effects)
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Animate skill bars inside section if visible
+                    const skillBars = entry.target.querySelectorAll('.skill-progress');
+                    skillBars.forEach(bar => {
+                        const targetWidth = bar.getAttribute('data-width');
+                        bar.style.width = targetWidth;
+                    });
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 3. Project Dynamic Filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-gradient-to-r', 'from-blue-600', 'to-purple-600', 'text-white');
+                    b.classList.add('glass-panel', 'text-gray-300');
+                });
+
+                // Add active class to clicked
+                btn.classList.add('active', 'bg-gradient-to-r', 'from-blue-600', 'to-purple-600', 'text-white');
+                btn.classList.remove('glass-panel', 'text-gray-300');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.style.display = 'flex';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // 4. Modal Project Details Data
+        const projectsData = {
+            'gestao-escolar': {
+                title: 'Sistema de Gestão Escolar (Web)',
+                category: 'PHP & MySQL',
+                description: 'Plataforma completa projetada para gerir a estrutura administrativa e académica de instituições de ensino. O sistema automatiza o fluxo desde a pré-inscrição até ao encerramento do ano letivo.',
+                features: [
+                    'Módulo de Matrículas e Inscrições de alunos',
+                    'Lançamento de notas por disciplina e cálculo automático de médias',
+                    'Geração de Pautas, Boletins e Guias de Pagamento em PDF',
+                    'Painel de Controlo para Administrador, Professores e Alunos'
+                ],
+                tech: ['PHP Nativo', 'MySQL', 'JavaScript (AJAX)', 'Tailwind CSS', 'FPDF']
+            },
+            'oficina-mecanica': {
+                title: 'Gestão de Oficina Mecânica (Desktop)',
+                category: 'C# .NET & SQL Server',
+                description: 'Aplicação Desktop desenvolvida para otimizar o fluxo de trabalho de oficinas mecânicas e centros auto, permitindo controlo rigoroso de reparações e stock de peças.',
+                features: [
+                    'Emissão e acompanhamento de Ordens de Serviço (OS)',
+                    'Controlo de Inventário e alertas de peças com stock baixo',
+                    'Registo de Clientes e Histórico de Manutenções por Veículo',
+                    'Relatórios Financeiros de receitas e custos de mão de obra'
+                ],
+                tech: ['C#', 'Windows Forms', 'SQL Server', 'ADO.NET', 'ReportViewer']
+            },
+            'gestao-hospitalar': {
+                title: 'Sistema Hospitalar / Maternidade',
+                category: 'PHP & MySQL',
+                description: 'Sistema web robusto focado no atendimento e gestão de internamentos hospitalares e setores de maternidade, priorizando a segurança dos dados do paciente.',
+                features: [
+                    'Triagem de pacientes com classificação de risco',
+                    'Agendamento de consultas médicas e gestão de filas',
+                    'Registo de partos, fichas neonatais e acompanhamento pós-parto',
+                    'Histórico clínico digital e prescrição eletrónica'
+                ],
+                tech: ['PHP 8', 'MySQL', 'JavaScript ES6', 'HTML5/CSS3', 'Bootstrap']
+            },
+            'sistema-c': {
+                title: 'Gestão de Inventário em C (Algoritmos)',
+                category: 'Linguagem C / Consola',
+                description: 'Projeto focado em algoritmos eficientes e estruturas de dados dinâmicas para gestão de inventário e dados em memória primária e secundária.',
+                features: [
+                    'Manipulação dinâmica de memória (malloc/free)',
+                    'Gravação e leitura persistente de dados em ficheiros binários (.dat)',
+                    'Algoritmos de ordenação e busca rápida (QuickSort / Binary Search)',
+                    'Menu interativo e rápido para a linha de comandos'
+                ],
+                tech: ['Linguagem C (GCC)', 'Ficheiros Binários', 'Estruturas Dinâmicas (Ponteiros)']
+            }
+        };
+
+        const modal = document.getElementById('projectModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+
+        function openModal(projectId) {
+            const data = projectsData[projectId];
+            if (!data) return;
+
+            modalTitle.textContent = data.title;
+            
+            let featuresHTML = data.features.map(f => `<li class="flex items-center gap-2 text-xs text-gray-300"><i class="fa-solid fa-check text-blue-400"></i> ${f}</li>`).join('');
+            let techHTML = data.tech.map(t => `<span class="px-2.5 py-1 rounded-md bg-gray-800 border border-gray-700 text-blue-400 text-xs font-mono">${t}</span>`).join('');
+
+            modalBody.innerHTML = `
+                <div>
+                    <span class="text-xs font-semibold text-purple-400 uppercase tracking-wider">${data.category}</span>
+                    <p class="text-sm text-gray-300 mt-2 leading-relaxed">${data.description}</p>
+                </div>
+                
+                <div class="pt-2">
+                    <h4 class="text-sm font-bold text-white mb-2 font-heading">Principais Funcionalidades:</h4>
+                    <ul class="space-y-1.5 bg-gray-950/60 p-4 rounded-xl border border-gray-800">
+                        ${featuresHTML}
+                    </ul>
+                </div>
+
+                <div class="pt-2">
+                    <h4 class="text-sm font-bold text-white mb-2 font-heading">Tecnologias Utilizadas:</h4>
+                    <div class="flex flex-wrap gap-2">
+                        ${techHTML}
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close Modal on click outside content
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // 5. Contact Form Validation and Fake Submit Handling
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            const alertBox = document.getElementById('formSuccessAlert');
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Enviando...`;
+
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Enviar Mensagem`;
+                alertBox.classList.remove('hidden');
+                document.getElementById('contactForm').reset();
+
+                setTimeout(() => {
+                    alertBox.classList.add('hidden');
+                }, 6000);
+            }, 1200);
+        }
+
+        // 6. Scroll Top Button & Navbar Background Adjust
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                scrollTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                scrollTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                scrollTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-xl', 'bg-darkBg/90');
+            } else {
+                navbar.classList.remove('shadow-xl', 'bg-darkBg/90');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
